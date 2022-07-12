@@ -13,3 +13,5 @@ Below are the services that are involved in developing the Invoice/Receipt OCR f
 The Invoice/Receipt file (JPG, PNG, PDF filetype) will first be uploaded to the website. Then, the image will then be uploaded to the Amazon S3 bucket by calling the upload function from Amazon Lambda through the API. After the Invoice/Receipt file is successfully uploaded, the textract function from Amazon Lambda will be called through the API to analyze the Invoice/Receipt file and extract  information from the file. Lastly, the extracted information will be send back to the web application and the extracted information will be displayed on the web application.
 
 **NOTE: Cross-Origin Resource Sharing (CORS)** must be enabled in order for the application to request the resource which is the Lambda function that returns the JSON object with the extracted information and uploads the CSV files to the S3 bucket.
+
+**NOTE :** An Amazon Lambda Layer that contains the files of the python module **Pandas** must be created for the Lambda. Then, the layer must be added to the textract lambda function in order for the function to be able to use the **Pandas** python module.

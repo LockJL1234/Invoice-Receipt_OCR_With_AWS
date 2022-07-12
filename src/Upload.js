@@ -61,7 +61,7 @@ class Upload extends Component {
     this.setState({ confirmation: "Processing..." });
     console.log("Status: Processing...")
     await fetch(
-      "https://lq7npkugg5.execute-api.ap-southeast-1.amazonaws.com/Production",
+      "YOUR_AMAZON_S3_FILE_UPLOAD_LAMBDA_API",
       {
         method: "POST",
         headers: {
@@ -83,7 +83,7 @@ class Upload extends Component {
 
     
     const response = await fetch(
-      "https://lq7npkugg5.execute-api.ap-southeast-1.amazonaws.com/Production/ocr",
+      "YOUR_TEXTRACT_LAMBDA_API",
       {
         method: "POST",
         headers: {
