@@ -1,70 +1,15 @@
-# Getting Started with Create React App
+# Invoice/Receipt OCR with AWS
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+### This is a simple React web application with an Invoice/Receipt OCR feature built into the web application.
 
-## Available Scripts
+The Invoice/Receipt OCR feature is developed using Amazon Web Services (AWS). There are a total of **4** services that are used in order to developed the Invoice/Receipt OCR feature.
 
-In the project directory, you can run:
+Below are the services that are involved in developing the Invoice/Receipt OCR feature:-
+- **Amazon S3**: It is responsible for storing the image file of the invoice/receipt as well as the generated CSV files which contain the extracted information in key-value pair form. AWS S3 service stores files as objects in a container that is called a bucket.
+- **Amazon Textract**: It is the machine learning (ML) service that is responsible for extracting text, handwritten text, and data from a scanned document.
+- **Amazon Lambda**: It is a serverless, event-driven compute service that lets you run code for virtually any type of application or backend service without provisioning or managing servers. There will be 2 different functions hosted by Amazon Lambda which are the function to upload the image to Amazon S3 bucket and the function to analyze the invoice/receipt file and extracts information from it using AWS Textract.
+- **Amazon API Gateway**: A REST API was created using Amazon API Gateway to create a communication link with the Lambda functions to upload the invoice/receipt file to the S3 bucket and retrieve the processed JSON object that contains the extracted information from the invoice/receipt file. 
 
-### `npm start`
+The Invoice/Receipt file (JPG, PNG, PDF filetype) will first be uploaded to the website. Then, the image will then be uploaded to the Amazon S3 bucket by calling the upload function from Amazon Lambda through the API. After the Invoice/Receipt file is successfully uploaded, the textract function from Amazon Lambda will be called through the API to analyze the Invoice/Receipt file and extract  information from the file. Lastly, the extracted information will be send back to the web application and the extracted information will be displayed on the web application.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+**NOTE: Cross-Origin Resource Sharing (CORS)** must be enabled in order for the application to request the resource which is the Lambda function that returns the JSON object with the extracted information and uploads the CSV files to the S3 bucket.
