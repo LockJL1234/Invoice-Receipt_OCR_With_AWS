@@ -13,7 +13,7 @@ def lambda_handler(event, context):
                               aws_secret_access_key='YOUR_SECRET_ACCESS_KEY')
                               
     #create s3 object
-    s3_client = boto3.client('s3', region_name='ap-YOUR_REGION-1', aws_access_key_id='YOUR_ACCESS_KEY',
+    s3_client = boto3.client('s3', region_name='YOUR_REGION', aws_access_key_id='YOUR_ACCESS_KEY',
                               aws_secret_access_key='YOUR_SECRET_ACCESS_KEY')
     #key represent name of file to be uploaded                          
     key = "generate/" + filePath[:-4]
